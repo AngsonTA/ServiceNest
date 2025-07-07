@@ -1,0 +1,19 @@
+<h2>Your Booking History</h2>
+
+{% if bookings %}
+    <ul>
+        {% for booking in bookings %}
+            <li>
+                Technician: {{ booking.technician.username }} <br>
+                Category: {{ booking.technician.category }} <br>
+                Status: {{ booking.status }} <br>
+                Date: {{ booking.timestamp|date:"Y-m-d H:i" }}
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no bookings yet.</p>
+{% endif %}
+
+<a href="{% url 'customer_dashboard' %}">← Back to Dashboard</a>

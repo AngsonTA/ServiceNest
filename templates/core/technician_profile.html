@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ technician.username }} - Profile</title>
+</head>
+<body>
+    <h1>{{ technician.username }}'s Profile</h1>
+
+    {% if technician.photo %}
+        <img src="{{ technician.photo.url }}" width="150" height="150" alt="Profile Photo">
+    {% else %}
+        <p>No photo uploaded.</p>
+    {% endif %}
+
+    <p><strong>Category:</strong> {{ technician.get_category_display }}</p>
+    <p><strong>Available:</strong> 
+        {% if technician.is_available %}
+            ✅ Yes
+        {% else %}
+            ❌ No
+        {% endif %}
+    </p>
+
+    <a href="{% url 'technician_list' %}">← Back to Technicians</a>
+</body>
+</html>

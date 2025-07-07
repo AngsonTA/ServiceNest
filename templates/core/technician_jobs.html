@@ -1,0 +1,13 @@
+<h2>Your Assigned Jobs</h2>
+<ul>
+    {% for booking in bookings %}
+        <li>
+            Customer: {{ booking.customer.username }} |
+            Status: {{ booking.status }} |
+            Date: {{ booking.timestamp }}
+        </li>
+    {% empty %}
+        <li>No jobs assigned.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'technician_dashboard' %}">← Back to Dashboard</a>

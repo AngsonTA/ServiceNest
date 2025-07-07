@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find Technicians</title>
+</head>
+<body>
+    <h1>Find Technicians</h1>
+
+    <form method="get">
+        <label for="category">Filter by Category:</label>
+        <select name="category" id="category">
+            <option value="">-- All Categories --</option>
+            <option value="ac">AC Repair</option>
+            <option value="electrician">Electrician</option>
+            <option value="laundry">Laundry</option>
+            <option value="carpenter">Carpenter</option>
+            <option value="driver">Driver</option>
+            <option value="plumber">Plumber</option>
+            <option value="pest">Pest Control</option>
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+   <ul>
+{% for technician in technicians %}
+    <li>
+        {% if technician.photo %}
+            <img src="{{ technician.photo.url }}" width="100" height="100">
+        {% endif %}
+        <strong><a href="{% url 'technician_profile' technician.id %}">{{ technician.username }}</a></strong>
+        - {{ technician.get_category_display }}
+        - {% if technician.is_available %}<span style="color:green">Available</span>{% else %}<span style="color:red">Unavailable</span>{% endif %}
+        
+        <form method="post" action="{% url 'book_technician' technician.id %}">
+    {% csrf_token %}
+    <button type="submit" {% if not technician.is_available %}disabled{% endif %}>Book</button>
+</form>
+
+    </li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
